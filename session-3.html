@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 3: Introduction to 3D Designing</title>
+<style>
+:root{--bg:#0a1128;--panel:#111c3f;--line:#243568;--mut:#b9c3e3;--or:#ff8a1f;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:#fff;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+section{min-height:100svh;scroll-snap-align:start;padding:64px 5vw 80px;display:flex;flex-direction:column;justify-content:center;gap:16px;max-width:1200px;margin:auto}
+h1{font-size:clamp(2rem,6vw,3.8rem);line-height:1.1;margin:0}
+h2{font-size:clamp(1.5rem,4vw,2.5rem);line-height:1.15;margin:0}
+p{margin:0;color:var(--mut);max-width:70ch}
+.or{color:var(--or)}.kick{color:var(--or);letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;transition:.3s}
+.card h3{margin:0 0 6px;color:var(--or);font-size:1.05rem}.card p{font-size:.93rem}
+.hl{border-color:var(--or);box-shadow:0 0 20px #ff8a1f50;transform:translateY(-3px)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,select{background:#16255a;color:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;font-size:.92rem;cursor:pointer}
+button:hover{border-color:var(--or)}button.on{background:var(--or);color:#0a1128;border-color:var(--or);font-weight:700}button.p{background:var(--or);color:#0a1128;border-color:var(--or);font-weight:700}
+label{display:flex;flex-direction:column;gap:3px;font-size:.82rem;color:var(--mut)}label b{color:#fff;font-weight:500}
+input[type=range]{accent-color:var(--or);width:100%}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);gap:16px;align-items:start}
+@media(max-width:820px){.stage{grid-template-columns:1fr}}
+.ctl{display:grid;gap:10px}
+.view,canvas.v{width:100%;height:min(58vh,480px);min-height:290px;background:radial-gradient(circle at 50% 35%,#18286a,#0a1128 75%);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:block}
+.view canvas{display:block;width:100%;height:100%;touch-action:none}
+.rv{opacity:0;transform:translateY(18px);transition:.7s}.rv.on{opacity:1;transform:none}
+.scene{perspective:700px;padding:50px}
+.cube{width:100px;height:100px;position:relative;transform-style:preserve-3d;animation:sp 10s linear infinite}
+.cube i{position:absolute;inset:0;border:2px solid var(--or);background:#ff8a1f1c}
+.cube i:nth-child(1){transform:translateZ(50px)}.cube i:nth-child(2){transform:rotateY(180deg) translateZ(50px)}.cube i:nth-child(3){transform:rotateY(90deg) translateZ(50px)}.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(50px)}.cube i:nth-child(5){transform:rotateX(90deg) translateZ(50px)}.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(50px)}
+@keyframes sp{to{transform:rotateX(360deg) rotateY(360deg)}}
+#bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;background:var(--or);width:0;z-index:20;transition:width .4s}
+#nav{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;z-index:20;background:#0a1128e6;padding:6px;border:1px solid var(--line);border-radius:12px;font-size:.85rem}
+.note{font-size:.85rem;color:var(--mut)}
+</style></head><body>
+<div id="bar"></div>
+<div id="nav"><button id="pv">&#8592;</button><span id="cnt">1 / 6</span><button id="nx">&#8594;</button></div>
+
+<section id="s1">
+ <div class="row" style="gap:30px;justify-content:space-between">
+  <div style="flex:1 1 340px" class="rv"><div class="kick">Session 3</div><h1>Introduction to <span class="or">3D Designing</span></h1><p style="margin-top:14px">From basic shapes to an aircraft you design, export as STL and test in a virtual wind tunnel.</p><p class="note" style="margin-top:10px">Scroll, use the arrow keys, or the buttons at the bottom right.</p></div>
+  <div class="scene"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ </div>
+</section>
+
+<section id="s2">
+ <div class="kick rv">01</div><h2 class="rv">What is <span class="or">3D designing</span>?</h2>
+ <p class="rv">Creating a digital model that has length, width and height, so it can be viewed from any side, tested, animated or turned into a real object by 3D printing.</p>
+ <div class="grid rv">
+  <div class="card"><h3>Engineering</h3><p>Aircraft, cars, robots and machine parts are modelled before they are built.</p></div>
+  <div class="card"><h3>Games and film</h3><p>Characters, worlds and effects are all 3D models.</p></div>
+  <div class="card"><h3>3D printing</h3><p>A model exported as STL becomes a physical part, layer by layer.</p></div>
+  <div class="card"><h3>Simulation</h3><p>Models are tested in virtual wind tunnels and stress tests before manufacture.</p></div>
+ </div>
+ <h3 class="rv" style="margin:8px 0 0;font-size:1rem;color:var(--or)">Workflow</h3>
+ <div class="grid rv" id="steps">
+  <div class="card"><h3>1. Sketch</h3><p>Idea and rough dimensions</p></div>
+  <div class="card"><h3>2. Model</h3><p>Combine shapes into a 3D form</p></div>
+  <div class="card"><h3>3. Test</h3><p>Simulate flow, loads, fit</p></div>
+  <div class="card"><h3>4. Export</h3><p>STL for printing or CNC</p></div>
+ </div>
+</section>
+
+<section id="s3">
+ <div class="kick rv">02</div><h2 class="rv">About <span class="or">Dimensions</span></h2>
+ <div class="row rv"><button data-d="1">1D</button><button data-d="2">2D</button><button data-d="3" class="on">3D</button></div>
+ <canvas id="dim" class="v rv"></canvas>
+ <p id="dinfo" class="rv"></p>
+</section>
+
+<section id="s4">
+ <div class="kick rv">03</div><h2 class="rv">Various 3D design tools and <span class="or">their roles</span></h2>
+ <div class="grid rv">
+  <div class="card"><h3>Tinkercad</h3><p>Browser based, built from basic shapes. Best first tool for beginners and 3D printing.</p></div>
+  <div class="card"><h3>Fusion 360</h3><p>Parametric CAD with sketches and constraints. Product and mechanical design.</p></div>
+  <div class="card"><h3>SolidWorks</h3><p>Industry CAD for parts, assemblies and engineering drawings.</p></div>
+  <div class="card"><h3>FreeCAD</h3><p>Open source parametric modeller for engineering work.</p></div>
+  <div class="card"><h3>Blender</h3><p>Free mesh modelling, sculpting, rendering and animation.</p></div>
+  <div class="card"><h3>OpenFOAM / Ansys</h3><p>Simulation tools. They run airflow (CFD) on a finished model, like our wind tunnel.</p></div>
+ </div>
+</section>
+
+<section id="s6">
+ <div class="kick rv">04</div><h2 class="rv">Designing an <span class="or">Aircraft</span></h2>
+ <p class="rv">Fuselage shape sets drag, wings make lift, the elevator controls pitch and the rudder controls yaw. Change the parts and watch the model rebuild. Drag to rotate.</p>
+ <div class="stage rv">
+  <div class="card ctl">
+   <label>Start from<select id="f_pre"></select></label>
+   <label>Fuselage shape<select id="f_fus"><option value="slim">Slim jet</option><option value="blunt">Blunt nose jet</option><option value="tube">Airliner tube</option><option value="tapered">Tapered light plane</option></select></label>
+   <label><span>Fuselage length <b id="o_L"></b></span><input type="range" id="f_L" min="4" max="12" step=".5"></label>
+   <label>Wing structure<select id="f_wing"><option value="straight">Straight</option><option value="swept">Swept</option><option value="delta">Delta</option></select></label>
+   <label><span>Wing span <b id="o_span"></b></span><input type="range" id="f_span" min="1" max="6" step=".1"></label>
+   <label><span>Elevator span <b id="o_elev"></b></span><input type="range" id="f_elev" min="0" max="3" step=".1"></label>
+   <label>Rudder style<select id="f_rud"><option value="swept">Single swept</option><option value="twin">Twin</option><option value="boxy">Single rectangular</option></select></label>
+   <label><span>Rudder height <b id="o_rh"></b></span><input type="range" id="f_rh" min=".8" max="3" step=".1"></label>
+   <button class="p" id="dlb">Download STL</button>
+   <button id="tow">Simulate in wind tunnel &#8594;</button>
+   <span class="note" id="dlnote"></span>
+  </div>
+  <div class="view" id="dv"></div>
+ </div>
+</section>
+
+<section id="s7">
+ <div class="kick rv">05</div><h2 class="rv">Wind-tunnel <span class="or">Simulator</span></h2>
+ <p class="rv">Air flows left to right. The streamlines follow the real body: they split at the nose, wrap around the fuselage, intakes and nacelles, speed up over the wing, and leave behind a downwash. Wingtip and LERX vortices spiral behind the model, and a turbulent wake grows as the angle of attack rises. Set the angle from -25 to +25 degrees. Push past about 13 degrees, up or down, to see the stall. Drag for a full 360 degree view.</p>
+ <div class="row rv" id="pre"></div>
+ <div class="row rv"><span class="note"><b style="color:#7fc0ff">Blue</b> smooth flow, <b style="color:var(--or)">orange</b> vortex, <b style="color:#ff4060">red</b> turbulent wake</span></div>
+ <div class="view rv" id="wv"></div>
+ <div class="grid rv" style="align-items:end">
+  <div class="row"><button class="p" id="run">Pause</button><button data-v="side">Side</button><button data-v="top">Top</button><button data-v="front">Front</button><button data-v="iso">3D</button></div>
+  <label><span>Angle of attack <b id="o_a">8&deg;</b></span><input type="range" id="aoa" min="-25" max="25" value="8"></label>
+  <label><span>Wind speed <b id="o_s">1.0x</b></span><input type="range" id="spd" min=".3" max="2.2" step=".1" value="1"></label>
+  <label style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="rot">Auto rotate</label>
+ </div>
+ <p class="note" id="wt"></p>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const $=s=>document.querySelector(s),T=THREE;
+/* navigation and reveal */
+const secs=[...document.querySelectorAll('section')];let cur=0;
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.rv').forEach((x,i)=>setTimeout(()=>x.classList.add('on'),i*90));cur=secs.indexOf(e.target);$('#bar').style.width=((cur+1)/secs.length*100)+'%';$('#cnt').textContent=(cur+1)+' / '+secs.length}}),{threshold:[.2]});
+secs.forEach(s=>io.observe(s));
+const go=d=>secs[Math.max(0,Math.min(secs.length-1,cur+d))].scrollIntoView();
+$('#pv').onclick=()=>go(-1);$('#nx').onclick=()=>go(1);
+addEventListener('keydown',e=>{if(/INPUT|SELECT/.test(e.target.tagName))return;if(e.key=='ArrowRight'||e.key=='PageDown')go(1);if(e.key=='ArrowLeft'||e.key=='PageUp')go(-1)});
+let si=0;const st=[...document.querySelectorAll('#steps .card')];setInterval(()=>{st.forEach((c,i)=>c.classList.toggle('hl',i==si));si=(si+1)%st.length},1300);
+
+/* dimensions demo */
+const dc=$('#dim'),cx=dc.getContext('2d');let dm=3,tt=0;
+const cv=[],ce=[];for(let i=0;i<8;i++)cv.push([i&1?1:-1,i&2?1:-1,i&4?1:-1]);
+for(let i=0;i<8;i++)for(let j=i+1;j<8;j++){const x=i^j;if(x==1||x==2||x==4)ce.push([i,j])}
+const SH={1:{v:[[-1,0,0],[1,0,0]],e:[[0,1]],i:"1D has only length. A line: 2 vertices, 1 edge."},
+2:{v:[[-1,-1,0],[1,-1,0],[1,1,0],[-1,1,0]],e:[[0,1],[1,2],[2,3],[3,0]],i:"2D adds width. A flat shape: 4 vertices, 4 edges, 1 face."},
+3:{v:cv,e:ce,i:"3D adds height, so the shape becomes a solid: 8 vertices, 12 edges, 6 faces. This is what we design and print."}};
+document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{dm=+b.dataset.d;document.querySelectorAll('[data-d]').forEach(x=>x.classList.toggle('on',x==b))});
+(function dl(){requestAnimationFrame(dl);tt+=.016;const w=dc.width=dc.clientWidth,h=dc.height=dc.clientHeight,u=Math.min(w,h)*.2,s=SH[dm],ay=dm==3?tt*.7:0,ax=dm==3?.45:0,k=dm<3?1+.12*Math.sin(tt*2):1;
+ const pr=([x,y,z],q=1)=>{x*=q;y*=q;z*=q;const a=x*Math.cos(ay)+z*Math.sin(ay),b=-x*Math.sin(ay)+z*Math.cos(ay),c=y*Math.cos(ax)-b*Math.sin(ax),d=y*Math.sin(ax)+b*Math.cos(ax),f=4/(4+d*.6);return[w/2+a*u*f,h/2-c*u*f]};
+ cx.font="16px system-ui";cx.lineWidth=1.5;
+ [[2.3,0,0,'X'],[0,2.3,0,'Y'],[0,0,2.3,'Z']].slice(0,dm).forEach(a=>{const p=pr(a);cx.strokeStyle="rgba(255,255,255,.35)";cx.beginPath();cx.moveTo(...pr([0,0,0]));cx.lineTo(...p);cx.stroke();cx.fillStyle="#fff";cx.fillText(a[3],p[0]+6,p[1])});
+ const P=s.v.map(v=>pr(v,k));
+ if(dm==2){cx.fillStyle="rgba(255,138,31,.18)";cx.beginPath();P.forEach((p,i)=>i?cx.lineTo(...p):cx.moveTo(...p));cx.fill()}
+ cx.strokeStyle="#ff8a1f";cx.lineWidth=3;s.e.forEach(([i,j])=>{cx.beginPath();cx.moveTo(...P[i]);cx.lineTo(...P[j]);cx.stroke()});
+ cx.fillStyle="#fff";P.forEach(p=>{cx.beginPath();cx.arc(p[0],p[1],5,0,7);cx.fill()});
+ $('#dinfo').textContent=s.i})();
+
+/* generic 3D viewer */
+const V=[];
+function viewer(el,cam){const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(r.domElement);
+ const s=new T.Scene(),c=new T.PerspectiveCamera(45,1,.1,200);c.position.set(...cam);
+ s.add(new T.HemisphereLight(0xffffff,0x223366,.95));const dl=new T.DirectionalLight(0xffffff,.9);dl.position.set(5,8,6);s.add(dl);
+ const o=new T.OrbitControls(c,r.domElement);o.enableDamping=true;const v={r,s,c,o,vis:false,tick:null};
+ const rs=()=>{const w=el.clientWidth,h=el.clientHeight;if(w&&h){r.setSize(w,h,false);c.aspect=w/h;c.updateProjectionMatrix()}};
+ new ResizeObserver(rs).observe(el);rs();new IntersectionObserver(e=>v.vis=e[0].isIntersecting).observe(el);V.push(v);return v}
+const clk=new T.Clock();(function L(){requestAnimationFrame(L);const dt=Math.min(clk.getDelta(),.05);V.forEach(v=>{if(!v.vis)return;v.tick&&v.tick(dt);v.o.update();v.r.render(v.s,v.c)})})();
+const grid=(v,n,y)=>{const g=new T.GridHelper(n,n,0xff8a1f,0x243568);g.position.y=y;v.s.add(g)};
+
+/* ===== aircraft model ===== */
+const FUS={slim:{p:1.7,e:.8,rm:.5},blunt:{p:1.35,e:.45,rm:.5},tube:{p:1.5,e:.3,rm:.12},tapered:{p:2.4,e:.55,rm:.15}};
+const fusR=(t,R,f)=>{let r=R*Math.pow(Math.sin(Math.PI*Math.pow(t,f.p)),f.e);if(t<.5)r=Math.max(r,R*f.rm);return Math.max(.001,r)};
+function lathe(L,R,f){const pts=[];for(let i=0;i<=28;i++){const t=i/28;pts.push(new T.Vector2(fusR(t,R,f),t*L-L/2))}
+ const g=new T.LatheGeometry(pts,32);g.rotateZ(Math.PI/2);return g}
+function shp(pts,sg){const s=new T.Shape(),q=sg<0?pts.slice().reverse():pts;q.forEach(([a,b],i)=>i?s.lineTo(a,sg*b):s.moveTo(a,sg*b));return s}
+function wing(pts,sg,d){const g=new T.ExtrudeGeometry(shp(pts,sg),{depth:d,bevelEnabled:false});g.rotateX(Math.PI/2);g.translate(0,d/2,0);return g}
+function fin(pts,d){const g=new T.ExtrudeGeometry(shp(pts,1),{depth:d,bevelEnabled:false});g.translate(0,0,-d/2);return g}
+const cylX=(a,b,l)=>{const g=new T.CylinderGeometry(a,b,l,20);g.rotateZ(Math.PI/2);return g};
+
+/* lofted body: sections [x,yc,zc,halfHeight,halfWidth], nose to tail (x increasing) */
+function loft(secs,seg,ex){seg=seg||28;ex=ex||2.2;const n=secs.length,pos=[],idx=[],pw=(c,e)=>Math.sign(c)*Math.pow(Math.abs(c),2/e);
+ secs.forEach(([x,yc,zc,by,bz])=>{for(let j=0;j<seg;j++){const a=j/seg*Math.PI*2;pos.push(x,yc+by*pw(Math.sin(a),ex),zc+bz*pw(Math.cos(a),ex))}});
+ for(let i=0;i<n-1;i++)for(let j=0;j<seg;j++){const a=i*seg+j,b=i*seg+(j+1)%seg,c=(i+1)*seg+j,d=(i+1)*seg+(j+1)%seg;idx.push(a,c,b,b,c,d)}
+ const cap=(i,tail)=>{const s=secs[i];if(s[3]*s[4]<9e-4)return;const ci=pos.length/3;pos.push(s[0],s[1],s[2]);for(let j=0;j<seg;j++){const a=i*seg+j,b=i*seg+(j+1)%seg;tail?idx.push(ci,b,a):idx.push(ci,a,b)}};
+ cap(0,false);cap(n-1,true);
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();return g}
+
+/* ===== flow descriptors: every solid is described for the airflow solver ===== */
+const newUD=()=>({tips:[],lev:[],bodies:[],surf:[]});
+function prepBody(secs){const P=Math.PI,A=s=>P*s[3]*s[4];let S=secs.map(s=>s.slice());const n0=S.length,f=S[0],l=S[n0-1],pre=[],post=[];
+ /* virtual closing cones so the displacement body is closed (sources sum to zero) */
+ if(f[3]*f[4]>9e-4){const r=Math.sqrt(f[3]*f[4]),Lc=Math.max(.3,1.5*r);[1,.6,.3,.1].forEach(d=>{const k=Math.sqrt(1-d*d);pre.push([f[0]-d*Lc,f[1],f[2],f[3]*k,f[4]*k])})}
+ if(l[3]*l[4]>9e-4){const r=Math.sqrt(l[3]*l[4]),Lc=Math.max(.3,2.2*r);[.1,.3,.6,1].forEach(d=>{const k=Math.sqrt(1-d*d);post.push([l[0]+d*Lc,l[1],l[2],l[3]*k,l[4]*k])})}
+ S=pre.concat(S,post);const n=S.length,B={n,i0:pre.length,i1:pre.length+n0-1,X:S.map(s=>s[0]),YC:S.map(s=>s[1]),ZC:S.map(s=>s[2]),BY:S.map(s=>s[3]),BZ:S.map(s=>s[4]),SX:[],SY:[],SZ:[],SM:[],SE:[]};
+ for(let k=0;k<n-1;k++){const m=A(S[k+1])-A(S[k]);if(Math.abs(m)<1e-6)continue;const r=Math.sqrt(Math.max(S[k][3]*S[k][4],S[k+1][3]*S[k+1][4]));
+  B.SX.push((S[k][0]+S[k+1][0])/2);B.SY.push((S[k][1]+S[k+1][1])/2);B.SZ.push((S[k][2]+S[k+1][2])/2);B.SM.push(m);B.SE.push(.09*r*r+4e-4)}
+ return B}
+const cylS=(x0,x1,yc,zc,r0,r1)=>[[x0,yc,zc,r0,r0],[(x0+x1)/2,yc,zc,(r0+r1)/2,(r0+r1)/2],[x1,yc,zc,r1,r1]];
+const ellS=(cx,cy,cz,ax,ay,az)=>[-1,-.8,-.5,-.2,.2,.5,.8,1].map(t=>{const k=Math.max(.04,Math.sqrt(1-t*t));return[cx+ax*t,cy,cz,ay*k,az*k]});
+/* strip: horizontal surface (k:'h', station = |z|) or vertical fin (k:'v', station = height) */
+function strip(ud,o){const st=o.st;o.smax=st[st.length-1][0];ud.surf.push(o)}
+function mats(){const mb=new T.MeshStandardMaterial({color:0xd5dcf0,roughness:.4,metalness:.3,side:T.DoubleSide}),mw=mb.clone(),md=new T.MeshStandardMaterial({color:0x2a3350,roughness:.5,metalness:.4}),mg=new T.MeshStandardMaterial({color:0x4da3ff,roughness:.2,metalness:.5});mw.color.set(0xff8a1f);return{mb,mw,md,mg}}
+
+/* ===== MiG-29 (Fulcrum): lofted fuselage, LERX, twin nacelles, chin intakes, canted twin fins ===== */
+function mig29(p){const g=new T.Group(),ud=newUD(),{mb,mw,md,mg}=mats(),mf=mw.clone();mf.color.set(0xc4600a);
+ const kx=p.L/15.2,kz=p.span/5.68,ke=p.elev/3.89,X=m=>-p.L/2+m*kx,Y=v=>v*kx;
+ const add=(geo,mt,x,y,z)=>{const o=new T.Mesh(geo,mt);o.position.set(x||0,y||0,z||0);g.add(o);return o};
+ const sec=a=>a.map(([m,yc,zc,by,bz])=>[X(m),Y(yc),Y(zc),Y(by),Y(bz)]),mir=a=>a.map(([m,yc,zc,by,bz])=>[m,yc,-zc,by,bz]);
+ const body=(a,mt,seg,ex,fs)=>{const s=sec(a);add(loft(s,seg||28,ex||2.2),mt);ud.bodies.push(prepBody(fs?s.map(q=>[q[0],q[1],q[2],q[3]*fs,q[4]*fs]):s));return s};
+ /* real dimensions in metres from the nose tip: length 15.2 (+probe), span 11.36, height 4.73 */
+ body([[0,-.15,0,.03,.03],[.7,-.12,0,.2,.2],[1.6,-.08,0,.34,.34],[2.6,-.04,0,.46,.46],[3.6,0,0,.58,.56],[4.6,0,0,.68,.58],[5.8,-.05,0,.72,.7],[7,-.1,0,.78,.9],[8.5,-.15,0,.8,1.2],[10,-.15,0,.74,1.3],[11.5,-.1,0,.62,1.1],[12.8,-.05,0,.52,.75],[14.4,0,0,.35,.32]],mb);
+ body([[2.9,.52,0,.02,.02],[3.4,.6,0,.2,.32],[4,.68,0,.34,.42],[4.8,.66,0,.3,.4],[5.6,.58,0,.16,.28],[6.2,.5,0,.02,.04]],mg);
+ body([[5.8,.62,0,.03,.06],[6.8,.7,0,.12,.55],[8.5,.64,0,.18,.8],[10.5,.5,0,.18,.72],[12.5,.38,0,.14,.45],[14.2,.3,0,.06,.2]],mb);
+ const nac=[[8,-.15,.75,.45,.5],[10,-.12,.78,.58,.62],[12,-.08,.78,.6,.62],[13.6,-.05,.76,.55,.57],[14.5,-.05,.74,.5,.52],[15.2,-.05,.72,.47,.49]],boom=[[10.5,.12,1.5,.26,.34],[12.5,.08,1.5,.3,.34],[14.8,0,1.5,.24,.2],[15.5,0,1.5,.04,.04]],
+  inl=[[5.4,-.62,.82,.3,.42],[5.9,-.62,.82,.38,.47],[8.4,-.62,.82,.38,.47],[9,-.6,.82,.2,.3]];
+ [1,-1].forEach(s=>{const sg=s<0;body(sg?mir(nac):nac,mb);body(sg?mir(boom):boom,mb,20);body(sg?mir(inl):inl,mb,24,4,1.08);
+  add(cylX(.52*kx,.49*kx,.5*kx),md,X(14.95),Y(-.05),s*Y(.72));                               /* nozzle ring */
+  add(loft(sec((sg?mir:(a=>a))([[5.37,-.62,.82,.26,.37],[5.55,-.62,.82,.28,.38]])),24,4),md)}); /* dark intake face */
+ /* wing + LERX as one swept planform (LE sweep ~42 deg, LERX ~70 deg) */
+ const wy=Y(-.25),wLE=z=>z<=1.95?4.2+z*(4.4/1.95):8.6+(z-1.95)*(3.4/3.73),wTE=z=>12.9+z/5.68*.4;
+ const wpts=[[4.2,0],[8.6,1.95],[12,5.68],[13.3,5.68],[12.9,0]].map(([m,z])=>[X(m),z*kz]);
+ [1,-1].forEach(s=>{add(wing(wpts,s,.08),mw,0,wy,0);
+  [[1.95,3.6],[3.7,5.5]].forEach(([z1,z2])=>{const f=.78,pts=[[X(wLE(z1)+(wTE(z1)-wLE(z1))*f),z1*kz],[X(wTE(z1)),z1*kz],[X(wTE(z2)),z2*kz],[X(wLE(z2)+(wTE(z2)-wLE(z2))*f),z2*kz]];add(wing(pts,s,.092),mf,0,wy+.002,0)})});
+ strip(ud,{k:'h',lift:true,st:[0,.5,1,1.5,1.95,2.8,3.7,4.6,5.68].map(z=>[z*kz,X(wLE(z)),X(wTE(z)),wy,.08])});
+ /* all-moving stabilators, low and outboard of the nacelles */
+ const sy=Y(-.35),spts=[[11.9,.9],[14.9,.9],[15.2,3.89],[14.3,3.89]].map(([m,z])=>[X(m),z*ke]);
+ [1,-1].forEach(s=>add(wing(spts,s,.05),mw,0,sy,0));
+ strip(ud,{k:'h',lift:true,st:[0,1].map(u=>[(.9+u*2.99)*ke,X(11.9+u*2.4),X(14.9+u*.3),sy,.05])});
+ /* twin vertical fins on the tail booms, canted outward 6 degrees */
+ const hs=p.rh/2.4,fpts=[[10.3,0],[14.2,0],[14.4,2.4],[12.8,2.4]].map(([m,h])=>[X(m),h*hs]),cant=.105;
+ [1,-1].forEach(s=>{add(fin(fpts,.06),mw,0,Y(.25),s*Y(1.5)).rotation.x=s*cant;
+  strip(ud,{k:'v',lift:false,y0:Y(.25),z0:s*Y(1.5),sg:s,tc:Math.tan(cant),st:[0,1].map(u=>[u*p.rh,X(10.3+u*2.5),X(14.2+u*.2),0,.06])})});
+ /* pitot probe, IRST ball */
+ const pr=new T.Mesh(new T.CylinderGeometry(.018,.018,.7*kx+.1,8),md);pr.rotation.z=Math.PI/2;pr.position.set(X(0)-.05,Y(-.15),0);g.add(pr);
+ add(new T.SphereGeometry(.09*kx,12,8),md,X(2.75),Y(.5),0);
+ ud.tips.push([X(13.3),wy,5.68*kz,1],[X(13.3),wy,-5.68*kz,1],[X(15.2),sy,3.89*ke,.3],[X(15.2),sy,-3.89*ke,.3]);
+ ud.lev.push([X(5.6),wy+.05,Y(.8)],[X(5.6),wy+.05,-Y(.8)]);
+ g.userData=ud;return g}
+
+/* ===== generic parametric aircraft ===== */
+function plane(p){if(p.mig)return mig29(p);
+ const g=new T.Group(),L=p.L,R=p.R,sp=p.span,W=p.wing,dl=W=='delta',sw=W=='swept',ex=p.ext||{},ud=newUD(),{mb,mw,md,mg}=mats();
+ const add=(geo,mt,x,y,z,rx=0,rz=0)=>{const o=new T.Mesh(geo,mt);o.position.set(x,y,z);o.rotation.set(rx,0,rz);g.add(o);return o};
+ const rod=(a,b,r)=>{const d=new T.Vector3(b[0]-a[0],b[1]-a[1],b[2]-a[2]),o=new T.Mesh(new T.CylinderGeometry(r,r,d.length(),8),md);o.position.set((a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2);o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());g.add(o)};
+ const fw=p.fw||1;add(lathe(L,R,FUS[p.fus]),mb,0,0,0).scale.z=fw;
+ {const s=[];for(let i=28;i>=0;i--){const t=i/28,r=fusR(t,R,FUS[p.fus]);s.push([L/2-t*L,0,0,r,r*fw])}ud.bodies.push(prepBody(s))}
+ const c=p.c??(dl?Math.min(L*.5,3.6):sw?2:1.7),ct=p.ct??(dl?.25:sw?.7:1),sh=p.shr!=null?sp*p.shr:dl?c-ct:sp*(sw?.6:.05),x0=p.x0f!=null?L*p.x0f:dl?L/2-c:-L*(sw?.15:.1),wy=R*(p.wy??-.2),th=p.th||.07,dih=p.dih||0;
+ [1,-1].forEach(s=>{add(wing([[x0,0],[x0+c,0],[x0+sh+ct,sp],[x0+sh,sp]],s,th),mw,0,wy,0).rotation.x=-s*dih;ud.tips.push([x0+sh+ct*.5,wy+sp*Math.sin(dih),s*sp,1])});
+ strip(ud,{k:'h',lift:true,st:[0,.25,.5,.75,1].map(u=>[u*sp,x0+sh*u,x0+c+(sh+ct-c)*u,wy+u*sp*Math.sin(dih),th])});
+ if(dl)[1,-1].forEach(s=>ud.lev.push([x0+c*.3,wy+.1,s*sp*.35]));
+ if(ex.elevon){const mx=mw.clone();mx.color.set(0xc4600a);[1,-1].forEach(s=>add(wing([[x0+c*.78,.02],[x0+c,.02],[x0+sh+ct,sp*.96],[x0+sh+ct*.78,sp*.96]],s,th+.012),mx,0,wy+.004,0))}
+ if(ex.wlet)[1,-1].forEach(s=>add(fin([[0,0],[ct*.9,0],[ct*.9+.25,.55],[.3,.55]],.05),mw,x0+sh+ct*.05,wy+sp*Math.sin(dih),s*sp).rotation.x=s*.2);
+ if(ex.lerx){const xl=x0-1.5,xa=x0+sh*.25,za=sp*.25;[1,-1].forEach(s=>{add(wing([[xl,R*.5],[x0+c*.6,R*.5],[xa+.4,za],[xa,za]],s,.06),mw,0,wy+.02,0);ud.lev.push([xl+.5,wy+.1,s*(R*.5+.35)])});
+  strip(ud,{k:'h',lift:false,st:[0,1].map(u=>[R*.5+(za-R*.5)*u,xl+(xa-xl)*u,x0+c*.6+(xa+.4-x0-c*.6)*u,wy+.02,.06])})}
+ if(p.elev>.2){const ec=p.ec??1.2,ect=p.ect??.5,es=p.elev*(p.eshr??.5),xe=p.exf!=null?L*p.exf:L/2-1.5,ey=R*(p.ey??0);
+  [1,-1].forEach(s=>add(wing([[xe,0],[xe+ec,0],[xe+es+ect,p.elev],[xe+es,p.elev]],s,.06),mw,0,ey,0));
+  strip(ud,{k:'h',lift:true,st:[0,1].map(u=>[u*p.elev,xe+es*u,xe+ec+(es+ect-ec)*u,ey,.06])});
+  ud.tips.push([xe+es+ect*.5,ey,p.elev,.35],[xe+es+ect*.5,ey,-p.elev,.35])}
+ const h=p.rh,fc=p.fc??1.5,fct=p.fct??.6,fs=h*(p.fshr??.6),xr=p.fxf!=null?L*p.fxf:L/2-2,rp=p.rud=='boxy'?[[xr,0],[xr+fc,0],[xr+fc,h],[xr,h]]:[[xr,0],[xr+fc,0],[xr+fs+fct,h],[xr+fs,h]],
+  fst=p.rud=='boxy'?[0,1].map(u=>[u*h,xr,xr+fc,0,.07]):[0,1].map(u=>[u*h,xr+fs*u,xr+fc+(fs+fct-fc)*u,0,.07]);
+ if(p.rud=='twin'){const z=p.fz??Math.max(.8,p.elev*.5),k=p.cant??.15;[z,-z].forEach(zz=>{add(fin(rp,.06),mw,0,R*.25,zz).rotation.x=Math.sign(zz)*k;strip(ud,{k:'v',lift:false,y0:R*.25,z0:zz,sg:Math.sign(zz),tc:Math.tan(k),st:fst})})}
+ else{add(fin(rp,.07),mw,0,R*.3,0);strip(ud,{k:'v',lift:false,y0:R*.3,z0:0,sg:0,tc:0,st:fst})}
+ if(ex.vent)add(fin([[xr+.3,0],[xr+1.2,0],[xr+1,-.6],[xr+.5,-.6]],.05),mw,0,-R*.3,0);
+ if(ex.eng)[1,-1].forEach(s=>{const z=s*sp*.36,xe=x0+sh*.36-.15,ye=wy+sp*.36*Math.sin(dih)-.38;add(cylX(.3,.26,1.4),mb,xe,ye,z);ud.bodies.push(prepBody(cylS(xe-.7,xe+.7,ye,z,.3,.26)));add(cylX(.22,.22,.12),md,xe-.72,ye,z);add(cylX(.12,.12,.2),md,xe+.78,ye,z);add(new T.BoxGeometry(.9,.4,.07),mb,xe+.25,ye+.22,z)});
+ if(ex.noz==1)add(cylX(R*.5,R*.42,.6),md,L/2-.1,0,0);
+ if(ex.noz==2)[1,-1].forEach(s=>add(cylX(ex.pod?.27:R*.38,ex.pod?.22:R*.32,.6),md,L/2-.1,0,s*(ex.pod?.42:R*.5)));
+ if(ex.pod)[1,-1].forEach(s=>{add(cylX(.3,.34,3.2),mb,L/2-1.8,-.02,s*.42);ud.bodies.push(prepBody(cylS(L/2-3.4,L/2-.2,-.02,s*.42,.3,.34)))});
+ if(ex.spine){add(new T.SphereGeometry(1,16,10),mb,-L*.05,R*.68,0).scale.set(2.8,.22,.4);ud.bodies.push(prepBody(ellS(-L*.05,R*.68,0,2.8,.22,.4)))}
+ if(ex.probe)rod([-L/2-.55,0,0],[-L/2+.2,0,0],.02);
+ if(ex.intake=='chin')[1,-1].forEach(s=>add(new T.BoxGeometry(1.5,.38,.42),md,-L*.2,-R*.6,s*(ex.pod?.45:R*.75)));
+ if(ex.intake=='side')[1,-1].forEach(s=>{add(cylX(.24,.24,.9),md,-L*.21,0,s*(R+.12));ud.bodies.push(prepBody(cylS(-L*.21-.45,-L*.21+.45,0,s*(R+.12),.24,.24)))});
+ if(ex.intake=='nose'){add(cylX(R*.45,R*.45,.3),md,-L/2+.18,0,0);const cn=new T.ConeGeometry(R*.28,.8,16);cn.rotateZ(Math.PI/2);add(cn,mb,-L/2-.1,0,0)}
+ if(ex.prop){const sc=new T.ConeGeometry(.13,.4,14);sc.rotateZ(Math.PI/2);add(sc,md,-L/2-.1,0,0);add(new T.BoxGeometry(.03,1.5,.12),md,-L/2,0,0,.3);add(new T.CylinderGeometry(.75,.75,.01,32),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.1}),-L/2-.05,0,0,0,Math.PI/2)}
+ if(ex.gear){const wl=(x,y,z)=>{const w=new T.Mesh(new T.CylinderGeometry(.13,.13,.09,16),md);w.rotation.x=Math.PI/2;w.position.set(x,y,z);g.add(w)};
+  wl(-L*.27,-R-.45,0);rod([-L*.27,-R*.7,0],[-L*.27,-R-.45,0],.03);[1,-1].forEach(s=>{wl(-.1,-R-.45,s*.7);rod([-.1,-R*.6,s*.5],[-.1,-R-.45,s*.7],.03)})}
+ if(ex.strut)[1,-1].forEach(s=>rod([x0+c*.4,-R*.8,s*R*.5],[x0+c*.4,wy,s*sp*.5],.03));
+ if(p.cps){const cp=add(new T.SphereGeometry(R*.55*p.cps,16,12),mg,L*(p.cpx??-.27),R*.7,0);cp.scale.set(1.7,.8,.8);ud.bodies.push(prepBody(ellS(L*(p.cpx??-.27),R*.7,0,1.7*R*.55*p.cps,.8*R*.55*p.cps,.8*R*.55*p.cps)))}
+ g.userData=ud;return g}
+const PRE={
+"MiG-29":{mig:1,L:8,span:3,elev:2,rh:1.3,fus:'slim',wing:'swept',rud:'twin',R:.5,
+ /* fallback parametric values, used only if the fuselage / wing / rudder selectors are changed */
+ c:2.6,ct:.62,shr:.82,x0f:-.12,wy:-.1,ec:1.5,ect:.55,eshr:.6,exf:.34,ey:-.2,fc:1.5,fct:.55,fshr:.75,fxf:.3,fz:.42,cant:.1,fw:1.3,ext:{lerx:1,intake:'chin',noz:2,pod:1,spine:1,probe:1}},
+"MiG-21":{fus:'blunt',L:8.5,R:.4,wing:'delta',span:1.9,c:3.1,ct:.75,shr:1.5,x0f:-.2,wy:0,elev:1.5,ec:1.4,ect:.5,eshr:.9,exf:.3,ey:-.3,rud:'swept',rh:1.5,fc:2.4,fct:.8,fshr:1.1,fxf:.17,cpx:-.25,ext:{intake:'nose',noz:1,vent:1,elevon:1}},
+"Mirage 2000":{fus:'slim',L:6.2,R:.34,wing:'delta',span:2,c:3.55,ct:.5,wy:-.1,elev:0,rud:'swept',rh:1.4,fc:1.7,fct:.7,fshr:.8,fxf:.2,ext:{intake:'side',noz:1,elevon:1}},
+"Airliner":{fus:'tube',L:11,R:.62,wing:'swept',span:5.1,c:1.8,ct:.45,shr:.5,x0f:-.1,wy:-.6,dih:.06,elev:1.8,ec:.9,ect:.35,eshr:.55,exf:.36,rud:'swept',rh:2,fc:1.8,fct:.6,fshr:1,fxf:.3,ext:{eng:1,wlet:1}},
+"Light plane":{fus:'tapered',L:6.5,R:.5,wing:'straight',span:4.2,c:1.3,ct:1,shr:.05,x0f:-.17,wy:.95,th:.1,elev:1.4,ec:.8,ect:.6,eshr:.05,exf:.38,ey:.2,rud:'swept',rh:1.2,fc:1.1,fct:.55,fshr:.8,fxf:.36,cpx:-.1,cps:1.9,ext:{prop:1,gear:1,strut:1}}};
+
+/* designer */
+const dv=viewer($('#dv'),[8,5,9]);grid(dv,16,-1.5);const dh=new T.Group();dv.s.add(dh);dv.o.autoRotate=true;dv.o.autoRotateSpeed=1.2;
+let design=JSON.parse(JSON.stringify(PRE["MiG-29"]));
+const F=['L','span','elev','rh'];
+function sync(){F.forEach(k=>{$('#f_'+k).value=design[k];$('#o_'+k).textContent=design[k]});['fus','wing','rud'].forEach(k=>$('#f_'+k).value=design[k])}
+function rebuild(){dh.clear();dh.add(plane(design));sync()}
+F.forEach(k=>$('#f_'+k).oninput=e=>{design[k]=+e.target.value;rebuild()});
+['fus','wing','rud'].forEach(k=>$('#f_'+k).onchange=e=>{delete design.mig;design[k]=e.target.value;if(k=='wing')['c','ct','shr','x0f','wy','dih','th'].forEach(q=>delete design[q]);rebuild()});
+Object.keys(PRE).forEach(n=>$('#f_pre').add(new Option(n,n)));
+$('#f_pre').onchange=e=>{design=JSON.parse(JSON.stringify(PRE[e.target.value]));rebuild()};
+rebuild();
+
+/* STL export and zip */
+function stl(root){root.updateMatrixWorld(true);const a=new T.Vector3(),b=new T.Vector3(),c=new T.Vector3(),n=new T.Vector3(),t=new T.Vector3();let o='solid aircraft\n';
+ const f=v=>v.x.toFixed(4)+' '+(-v.z).toFixed(4)+' '+v.y.toFixed(4);
+ root.traverse(m=>{if(!m.isMesh)return;const g=m.geometry.index?m.geometry.toNonIndexed():m.geometry,p=g.attributes.position;
+  for(let i=0;i<p.count;i+=3){a.fromBufferAttribute(p,i).applyMatrix4(m.matrixWorld);b.fromBufferAttribute(p,i+1).applyMatrix4(m.matrixWorld);c.fromBufferAttribute(p,i+2).applyMatrix4(m.matrixWorld);
+   n.subVectors(b,a).cross(t.subVectors(c,a)).normalize();o+='facet normal '+f(n)+'\nouter loop\nvertex '+f(a)+'\nvertex '+f(b)+'\nvertex '+f(c)+'\nendloop\nendfacet\n'}});
+ return o+'endsolid aircraft\n'}
+function zip(name,str){const d=new TextEncoder().encode(str),n=new TextEncoder().encode(name),tb=[];let c,crc=-1;
+ for(let i=0;i<256;i++){c=i;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;tb[i]=c}
+ for(const x of d)crc=tb[(crc^x)&255]^(crc>>>8);crc=(crc^-1)>>>0;
+ const P=(...a)=>{const v=new DataView(new ArrayBuffer(a.reduce((s,x)=>s+x[0],0)));let o=0;a.forEach(([s,x])=>{s==4?v.setUint32(o,x,true):v.setUint16(o,x,true);o+=s});return new Uint8Array(v.buffer)};
+ const l=d.length,nl=n.length;
+ return new Blob([P([4,0x04034b50],[2,20],[2,0],[2,0],[2,0],[2,33],[4,crc],[4,l],[4,l],[2,nl],[2,0]),n,d,
+  P([4,0x02014b50],[2,20],[2,20],[2,0],[2,0],[2,0],[2,33],[4,crc],[4,l],[4,l],[2,nl],[2,0],[2,0],[2,0],[2,0],[4,0],[4,0]),n,
+  P([4,0x06054b50],[2,0],[2,0],[2,1],[2,1],[4,46+nl],[4,30+nl+l],[2,0])],{type:'application/zip'})}
+async function save(blob,name){try{const d=window.claude&&await claude.use('downloads');if(d){await d.save({filename:name,data:blob});return}}catch(e){if(e&&e.code=='declined')return}
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click()}
+$('#dlb').onclick=()=>{save(zip('aircraft.stl',stl(dh)),'aircraft-stl.zip');$('#dlnote').textContent='Saved as a zip that contains aircraft.stl. Unzip it, then open it in Tinkercad, Blender or a slicer.'};
+
+/* wind tunnel */
+const XT=14,YT=4,ZT=6,DEG=Math.PI/180,PI=Math.PI;
+const wv=viewer($('#wv'),[9,5,13]);wv.o.maxDistance=50;grid(wv,30,-YT);
+wv.s.add(new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(2*XT,2*YT,2*ZT)),new T.LineBasicMaterial({color:0xff8a1f,transparent:true,opacity:.45})));
+const wh=new T.Group(),vg=new T.Group();wv.s.add(wh,vg);
+let UD=newUD(),VX=[],SB={xm:2,cy:0,hz:2,yh:1},aoa=8,run=true,spd=1,pn='',LFK=1,STK=0,TBA=.2;const PB={};
+const stallF=()=>Math.max(0,Math.min(1.4,(Math.abs(aoa)-(pn=='d'?18:13))/8));
+
+/* ---- exact 2D potential flow around an ellipse (Joukowski map), with optional circulation ----
+   xi along the chord/width axis (semi-axis A >= B), eta across it. Freestream (u,v).
+   Sets EU,EV = potential-flow velocity, CU,CV = extra velocity from circulation G (clockwise +). Returns false inside the ellipse. */
+let EU=0,EV=0,CU=0,CV=0;
+function ellipseFlow(xi,eta,A,B,u,v,G){const R=(A+B)/2,c2=(A*A-B*B)/4;let zr,zi;
+ if(c2<1e-8){zr=xi;zi=eta}
+ else{const dr=xi*xi-eta*eta-4*c2,di=2*xi*eta,m=Math.sqrt(dr*dr+di*di);let wr=Math.sqrt(Math.max(0,(m+dr)/2)),wi=Math.sqrt(Math.max(0,(m-dr)/2));if(di<0)wi=-wi;
+  const ar=(xi+wr)/2,ai=(eta+wi)/2,br=(xi-wr)/2,bi=(eta-wi)/2;if(ar*ar+ai*ai>=br*br+bi*bi){zr=ar;zi=ai}else{zr=br;zi=bi}}
+ const q2=zr*zr+zi*zi;if(q2<R*R*1.0004)return false;
+ const ir=(zr*zr-zi*zi)/(q2*q2),ii=-2*zr*zi/(q2*q2),R2=R*R,tr=R2*(u*ir-v*ii),ti=R2*(u*ii+v*ir),wr_=u-tr,wi_=-v-ti,dr_=1-c2*ir,di_=-c2*ii,dd=dr_*dr_+di_*di_;
+ EU=(wr_*dr_+wi_*di_)/dd;EV=-(wi_*dr_-wr_*di_)/dd;
+ const k=G/(2*PI*q2),cr=k*zi,ci=k*zr;CU=(cr*dr_+ci*di_)/dd;CV=-(ci*dr_-cr*di_)/dd;return true}
+function ell2(xi,eta,a,b,u,v,G){if(a>=b)return ellipseFlow(xi,eta,a,b,u,v,G);
+ if(!ellipseFlow(eta,-xi,b,a,v,-u,G))return false;const eu=EU,ev=EV,cu=CU,cv=CV;EU=-ev;EV=eu;CU=-cv;CV=cu;return true}
+
+/* ---- bodies: thickness from a source distribution + exact cross-flow around each elliptical section ---- */
+let PXV=0;
+function bodyVel(B,lx,ly,lz,ux,uy,o){const SX=B.SX,SY=B.SY,SZ=B.SZ,SM=B.SM,SE=B.SE;let ax=0,ay=0,az=0;
+ for(let k=0;k<SX.length;k++){const dx=lx-SX[k],dy=ly-SY[k],dz=lz-SZ[k],r2=dx*dx+dy*dy+dz*dz+SE[k],f=SM[k]/(r2*Math.sqrt(r2));ax+=f*dx;ay+=f*dy;az+=f*dz}
+ const c=ux/(4*PI);o.x+=c*ax;o.y+=c*ay;o.z+=c*az;
+ const X=B.X,n=B.n;if(lx<=X[0]||lx>=X[n-1])return;
+ let i=0;while(i<n-2&&lx>X[i+1])i++;const t=(lx-X[i])/(X[i+1]-X[i]),yc=B.YC[i]+(B.YC[i+1]-B.YC[i])*t,zc=B.ZC[i]+(B.ZC[i+1]-B.ZC[i])*t,by=B.BY[i]+(B.BY[i+1]-B.BY[i])*t,bz=B.BZ[i]+(B.BZ[i+1]-B.BZ[i])*t;
+ if(by<.012||bz<.012)return;const dy=ly-yc,dz=lz-zc;
+ if(i>=B.i0&&i<B.i1){const rho=Math.sqrt(dy*dy/(by*by)+dz*dz/(bz*bz));if(rho<1.7)PXV=Math.max(PXV,Math.exp(-Math.max(0,rho-1)*7)*.85)}
+ if(Math.abs(uy)>1e-3&&ell2(dz,dy,bz,by,0,uy,0)){o.z+=EU;o.y+=EV-uy}}
+function pushBody(B,p){const X=B.X;if(p.x<=X[B.i0]||p.x>=X[B.i1])return false;let i=B.i0;while(i<B.i1-1&&p.x>X[i+1])i++;const t=(p.x-X[i])/(X[i+1]-X[i]),
+  yc=B.YC[i]+(B.YC[i+1]-B.YC[i])*t,zc=B.ZC[i]+(B.ZC[i+1]-B.ZC[i])*t,by=B.BY[i]+(B.BY[i+1]-B.BY[i])*t,bz=B.BZ[i]+(B.BZ[i+1]-B.BZ[i])*t;if(by<.01||bz<.01)return false;
+ const dy=p.y-yc,dz=p.z-zc,r2=dy*dy/(by*by)+dz*dz/(bz*bz);if(r2>=1.03)return false;
+ if(r2<1e-6){p.y=yc+by*1.03;return true}const k=1.015/Math.sqrt(r2);p.y=yc+dy*k;p.z=zc+dz*k;return true}
+
+/* ---- wings, tails, fins: exact 2D flow around every spanwise strip + Kutta circulation (lift), faded at the tips ---- */
+let GL=0,GT=0,GO=0,GH=0,GW=1;
+function stat(Sf,s){const S=Sf.st,n=S.length;let i=0;while(i<n-2&&s>S[i+1][0])i++;const a=S[i],b=S[i+1],d=b[0]-a[0],t=d>1e-6?Math.max(0,Math.min(1,(s-a[0])/d)):0;
+ GL=a[1]+(b[1]-a[1])*t;GT=a[2]+(b[2]-a[2])*t;GO=a[3]+(b[3]-a[3])*t;GH=a[4]+(b[4]-a[4])*t;GW=1;
+ if(s>Sf.smax){const q=(s-Sf.smax)/(.1*(GT-GL)+.1);GW=Math.exp(-q*q)}else if(Sf.k=='v'&&s<0){const q=-s/.12;GW=Math.exp(-q*q)}}
+function surfVel(Sf,lx,ly,lz,ux,uy,o){const hz=Sf.k=='h',s=hz?Math.abs(lz):ly-Sf.y0;stat(Sf,s);if(GW<.01)return;const c=GT-GL;if(c<.05)return;
+ const xi=lx-(GL+GT)/2,eta=hz?ly-GO:lz-(Sf.z0+Sf.sg*Math.max(0,s)*Sf.tc),a=c/2,b=Math.max(GH*.62,.02);if(Math.abs(xi)>10*a+3||Math.abs(eta)>7)return;
+ const u=ux,v=hz?uy:0,R=(a+b)/2,G=4*PI*R*v;if(!ellipseFlow(xi,eta,a,b,u,v,G))return;
+ let px=GW*(EU-u),py=GW*(EV-v);
+ if(hz&&Sf.lift){const q=s/(Sf.smax*1.04),load=Math.sqrt(Math.max(0,1-q*q)),r2=xi*xi+eta*eta,l=1.1*c+.3,k=GW*load*LFK/(1+r2/(l*l));px+=k*CU;py+=k*CV}
+ o.x+=px;if(hz)o.y+=py;else o.z+=py;
+ const d=Math.abs(eta)-b;if(GW>.5&&Math.abs(xi)<a&&d<.3)PXV=Math.max(PXV,Math.exp(-Math.max(0,d)*14)*GW*.8)}
+function pushSurf(Sf,p){const hz=Sf.k=='h',s=hz?Math.abs(p.z):p.y-Sf.y0;if(s<0||s>Sf.smax)return false;stat(Sf,s);if(p.x<GL||p.x>GT)return false;const half=GH/2+.025;
+ if(hz){const d=p.y-GO;if(Math.abs(d)<half){p.y=GO+(d>=0?half:-half);return true}}
+ else{const zo=Sf.z0+Sf.sg*s*Sf.tc,d=p.z-zo;if(Math.abs(d)<half){p.z=zo+(d>=0?half:-half);return true}}return false}
+
+/* ---- full velocity field (world frame). Aircraft is rotated by the angle of attack, so the wind is always +x ---- */
+const O={x:0,y:0,z:0},Q={x:0,y:0,z:0},FR={vx:0,vy:0,vz:0,vt:0,tb:0,px:0};
+function field(wx,wy,wz,ph,v0,ca,sa,T0){const lx=wx*ca-wy*sa,ly=wx*sa+wy*ca,lz=wz,ux=v0*ca,uy=v0*sa;O.x=O.y=O.z=0;PXV=0;
+ for(let i=0;i<UD.bodies.length;i++)bodyVel(UD.bodies[i],lx,ly,lz,ux,uy,O);
+ for(let i=0;i<UD.surf.length;i++)surfVel(UD.surf[i],lx,ly,lz,ux,uy,O);
+ let vx=v0+O.x*ca+O.y*sa,vy=-O.x*sa+O.y*ca,vz=O.z,vt=0,tb=0;
+ for(let i=0;i<VX.length;i++){const q=VX[i],dq=wx-q.x;if(dq<=0)continue;const ry=Math.min(1,dq/.8),dy=wy-(q.y-.06*dq*q.lf),dz=wz-q.z*Math.max(.55,1-.02*dq),d2=dy*dy+dz*dz+1e-4,rc=.08+.014*dq,
+   f=(1-Math.exp(-d2/(rc*rc)))/(2*PI*d2)*q.G*Math.exp(-dq/12)*ry;vy+=f*q.sg*dz;vz-=f*q.sg*dy;vt=Math.max(vt,ry*Math.exp(-d2/(4*rc*rc)))}
+ const xw=SB.xm-STK*3;
+ if(wx>xw){const dx=wx-xw,h=.5+.18*dx+STK*1.3+SB.yh*.4,hz=SB.hz*.8+.12*dx,a1=1-Math.abs(wy-SB.cy)/h,a2=1-Math.abs(wz)/hz;
+  if(a1>0&&a2>0){const w=Math.min(a1,a2)*Math.exp(-dx/9),A=w*TBA*5.5;vy+=A*(Math.sin(T0*9+ph+wx*1.7)+.5*Math.sin(T0*17+ph*3+wx*3.1));vz+=A*(Math.cos(T0*7.5+ph*2+wx*1.3)+.5*Math.cos(T0*15+ph*5));vx-=A*.3;tb=Math.min(1,w*TBA*1.3)}}
+ const sp=Math.sqrt(vx*vx+vy*vy+vz*vz),cap=3*v0;if(sp>cap){const k=cap/sp;vx*=k;vy*=k;vz*=k}
+ const wl=Math.min(YT-wy,wy+YT,ZT-wz,wz+ZT),bl=1-.55*Math.exp(-Math.max(0,wl)/.35),k2=bl*(1-.5*PXV);
+ FR.vx=Math.max(vx*k2,.1*v0);FR.vy=vy*k2;FR.vz=vz*k2;FR.vt=vt;FR.tb=tb;FR.px=PXV}
+/* keep particles out of solid parts (works in the aircraft frame) */
+function project(P3,i,ca,sa){const x=P3[i],y=P3[i+1],z=P3[i+2];Q.x=x*ca-y*sa;Q.y=x*sa+y*ca;Q.z=z;let ch=false;
+ for(let k=0;k<UD.bodies.length;k++)if(pushBody(UD.bodies[k],Q))ch=true;for(let k=0;k<UD.surf.length;k++)if(pushSurf(UD.surf[k],Q))ch=true;
+ if(ch){P3[i]=Q.x*ca+Q.y*sa;P3[i+1]=-Q.x*sa+Q.y*ca;P3[i+2]=Q.z}}
+
+function samp(){wh.updateMatrixWorld(true);const m0=wh.children[0];if(!m0)return;UD=m0.userData;
+ const bb=new T.Box3().setFromObject(wh);SB={xm:bb.max.x,cy:(bb.min.y+bb.max.y)/2,hz:Math.max(bb.max.z,.8),yh:bb.max.y-bb.min.y};
+ STK=stallF();LFK=1-(pn=='d'?.6:.85)*Math.min(1,STK);TBA=.2+1.3*STK;
+ const s0=Math.sign(aoa),al=Math.min(Math.abs(aoa),pn=='d'?22:16),lfs=s0*al/10*(1-.4*Math.min(1,STK));VX=[];vg.clear();
+ UD.tips.forEach(t=>{const v=wh.localToWorld(new T.Vector3(t[0],t[1],t[2]));VX.push({x:v.x,y:v.y,z:v.z,sg:Math.sign(v.z)||1,G:1.9*lfs*(t[3]??1),lf:lfs})});
+ if(Math.abs(aoa)>2)UD.lev.forEach(t=>{const v=wh.localToWorld(new T.Vector3(t[0],t[1],t[2]));VX.push({x:v.x,y:v.y+.1*s0,z:v.z,sg:Math.sign(v.z)||1,G:1.9*s0*Math.min(1.3,Math.abs(aoa)/14),lf:.7*s0})});
+ VX=VX.filter(q=>Math.abs(q.G)>.05);
+ VX.forEach(q=>{const pts=[];for(let d=0;d<=13;d++)pts.push(new T.Vector3(q.x+d,q.y-.06*d*q.lf,q.z*Math.max(.55,1-.02*d)));vg.add(new T.Line(new T.BufferGeometry().setFromPoints(pts),new T.LineBasicMaterial({color:0xff8a1f,transparent:true,opacity:.3})))})}
+function show(p,name,key){wh.clear();wh.add(plane(p));pn=p.wing=='delta'?'d':'';wh.rotation.z=-aoa*DEG;samp();Object.values(PB).forEach(b=>b.classList.remove('on'));PB[key]&&PB[key].classList.add('on');$('#wt').textContent='Selected aircraft: '+name}
+
+const NS=520,TL=24,P=new Float32Array(NS*3),Y0=new Float32Array(NS),Z0=new Float32Array(NS),PH=Float32Array.from({length:NS},()=>Math.random()*6.28),H=new Float32Array(NS*TL*3),HC=new Float32Array(NS*TL*3),LP=new Float32Array(NS*(TL-1)*6),LC=new Float32Array(NS*(TL-1)*6);
+function spawn(i,x){const near=i%2==0,y=near?SB.cy+(Math.random()-.5)*(SB.yh+2.5):(Math.random()-.5)*2*(YT-.3),z=near?(Math.random()-.5)*(SB.hz*2+2):(Math.random()-.5)*2*(ZT-.3);
+ const yy=Math.max(-YT+.2,Math.min(YT-.2,y)),zz=Math.max(-ZT+.2,Math.min(ZT-.2,z));P[i*3]=x;P[i*3+1]=Y0[i]=yy;P[i*3+2]=Z0[i]=zz;for(let j=0;j<TL;j++){H.set([x,yy,zz],(i*TL+j)*3);HC.set([0,0,0],(i*TL+j)*3)}}
+const lg=new T.BufferGeometry();lg.setAttribute('position',new T.BufferAttribute(LP,3));lg.setAttribute('color',new T.BufferAttribute(LC,3));
+const ln=new T.LineSegments(lg,new T.LineBasicMaterial({vertexColors:true,transparent:true,blending:T.AdditiveBlending,depthWrite:false}));ln.frustumCulled=false;wv.s.add(ln);
+let T0=0,acc=0;
+wv.tick=dt=>{if(!run)return;T0+=dt;acc+=dt;const push=acc>.035;if(push)acc=0;const v0=spd*7,ca=Math.cos(aoa*DEG),sa=Math.sin(aoa*DEG),ns=Math.min(4,Math.max(1,Math.ceil(v0*dt*1.8/.1))),h=dt/ns;
+ for(let i=0;i<NS;i++){let vt=0,tb=0,px=0,sp=1;
+  for(let s=0;s<ns;s++){const x=P[i*3],y=P[i*3+1],z=P[i*3+2];field(x,y,z,PH[i],v0,ca,sa,T0);
+   const rs=FR.tb>.05?.04:.1;P[i*3]=x+FR.vx*h;P[i*3+1]=Math.max(-YT+.05,Math.min(YT-.05,y+(FR.vy+(Y0[i]-y)*rs)*h));P[i*3+2]=Math.max(-ZT+.05,Math.min(ZT-.05,z+(FR.vz+(Z0[i]-z)*rs)*h));
+   project(P,i*3,ca,sa);vt=FR.vt;tb=FR.tb;px=FR.px;sp=Math.sqrt(FR.vx*FR.vx+FR.vy*FR.vy+FR.vz*FR.vz)/v0}
+  const x=P[i*3],y=P[i*3+1],z=P[i*3+2],u=Math.max(0,Math.min(1,sp-.5));vt=Math.min(1,vt);
+  let cr=.2+.4*u,cg=.5+.35*u,cb=.95;cr+=(1-cr)*vt;cg+=(.54-cg)*vt;cb+=(.12-cb)*vt;cr=cr*(1-tb)+tb;cg=cg*(1-tb)+.22*tb;cb=cb*(1-tb)+.3*tb;
+  const bm=.8+.2*Math.max(vt,tb),b0=i*TL*3;
+  if(push){H.copyWithin(b0+3,b0,b0+(TL-1)*3);HC.copyWithin(b0+3,b0,b0+(TL-1)*3)}
+  H[b0]=x;H[b0+1]=y;H[b0+2]=z;HC[b0]=cr*bm;HC[b0+1]=cg*bm;HC[b0+2]=cb*bm;
+  for(let j=0;j<TL-1;j++){const o=(i*(TL-1)+j)*6,a=b0+j*3,f1=1-j/(TL-1),f2=1-(j+1)/(TL-1);
+   LP[o]=H[a];LP[o+1]=H[a+1];LP[o+2]=H[a+2];LP[o+3]=H[a+3];LP[o+4]=H[a+4];LP[o+5]=H[a+5];
+   LC[o]=HC[a]*f1;LC[o+1]=HC[a+1]*f1;LC[o+2]=HC[a+2]*f1;LC[o+3]=HC[a+3]*f2;LC[o+4]=HC[a+4]*f2;LC[o+5]=HC[a+5]*f2}
+  if(x>XT-.2)spawn(i,-XT+.2)}
+ lg.attributes.position.needsUpdate=lg.attributes.color.needsUpdate=true};
+Object.keys(PRE).forEach(n=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>show(PRE[n],n,n);PB[n]=b;$('#pre').appendChild(b)});
+const mb2=document.createElement('button');mb2.textContent='My design';mb2.onclick=()=>show(design,'my design from the designer','mine');PB.mine=mb2;$('#pre').prepend(mb2);
+$('#tow').onclick=()=>{show(design,'my design from the designer','mine');$('#s6').scrollIntoView()};
+$('#run').onclick=e=>{run=!run;e.target.textContent=run?'Pause':'Play'};
+$('#aoa').oninput=e=>{aoa=+e.target.value;wh.rotation.z=-aoa*DEG;$('#o_a').textContent=(aoa>0?'+':'')+aoa+'\u00b0';samp()};
+$('#spd').oninput=e=>{spd=+e.target.value;$('#o_s').textContent=spd.toFixed(1)+'x'};
+$('#rot').onchange=e=>{wv.o.autoRotate=e.target.checked};
+const VW={side:[0,0,19],top:[0,19,.01],front:[-19,1,0],iso:[9,5,13]};
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{wv.c.position.set(...VW[b.dataset.v]);wv.o.target.set(0,0,0)});
+show(PRE["MiG-29"],"MiG-29","MiG-29");for(let i=0;i<NS;i++)spawn(i,(Math.random()-.5)*2*XT);
+</script>
+</body></html>
