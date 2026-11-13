@@ -35,6 +35,17 @@ input[type=range]{accent-color:var(--or);width:100%}
 #bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;background:var(--or);width:0;z-index:20;transition:width .4s}
 #nav{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;z-index:20;background:#0a1128e6;padding:6px;border:1px solid var(--line);border-radius:12px;font-size:.85rem}
 .bl{margin:0;padding-left:1.2em;color:var(--mut);max-width:70ch;display:grid;gap:4px}.bl li::marker{color:var(--or)}
+.pt{fill:#b9c3e31f;stroke:#b9c3e3;stroke-width:1.5;stroke-linejoin:round;transition:.2s}
+[data-p].pt{cursor:pointer}
+.pt.fu{fill:#e8eefc2a}
+.pt.on{fill:#ff8a1f88;stroke:#ff8a1f;stroke-width:2.5}
+.lb{fill:#c9d4f5;font-size:16px;transition:.2s}.lb[data-p]{cursor:pointer}.lb.on{fill:#ff8a1f;font-weight:700}
+.ld{stroke:#7f8db7;stroke-width:1;transition:.2s}.ld.on{stroke:#ff8a1f}
+.card.on{border-color:var(--or);box-shadow:0 0 20px #ff8a1f50}
+.stp{display:grid;gap:2px;text-align:left;width:100%;padding:8px 12px}.stp small{color:var(--mut);font-size:.8rem;line-height:1.25}.stp b{color:var(--or);margin-right:4px}
+.stp.on{background:#1f3270;color:#fff;border-color:var(--or);font-weight:500}.stp.on small{color:#c9d4f5}
+.kbd{background:#16255a;border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:.85rem;color:#fff;font-weight:500;margin-right:6px}
+#tkd{position:absolute;left:12px;bottom:10px;font-size:.85rem;color:#fff;background:#0a1128cc;padding:4px 10px;border-radius:8px;z-index:2}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:700px){.g3{grid-template-columns:1fr}}
 .stage2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:stretch}
 @media(max-width:820px){.stage2{grid-template-columns:1fr}}
@@ -53,7 +64,7 @@ input[type=range]{accent-color:var(--or);width:100%}
 .note{font-size:.85rem;color:var(--mut)}
 </style></head><body>
 <div id="bar"></div>
-<div id="nav"><button id="pv">&#8592;</button><span id="cnt">1 / 10</span><button id="nx">&#8594;</button></div>
+<div id="nav"><button id="pv">&#8592;</button><span id="cnt">1 / 13</span><button id="nx">&#8594;</button></div>
 
 <section id="s1">
  <div class="row" style="gap:30px;justify-content:space-between">
@@ -93,27 +104,131 @@ input[type=range]{accent-color:var(--or);width:100%}
   <div class="card"><h3>Tinkercad</h3><p>Browser based, built from basic shapes. Best first tool for beginners and 3D printing.</p></div>
   <div class="card"><h3>Fusion 360</h3><p>Parametric CAD with sketches and constraints. Product and mechanical design.</p></div>
   <div class="card"><h3>SolidWorks</h3><p>Industry CAD for parts, assemblies and engineering drawings.</p></div>
-  <div class="card"><h3>FreeCAD</h3><p>Open source parametric modeller for engineering work.</p></div>
+  <div class="card"><h3>Autodesk Maya</h3><p>Industry standard for 3D animation, character rigging and visual effects in films, games and TV.</p></div>
   <div class="card"><h3>Blender</h3><p>Free mesh modelling, sculpting, rendering and animation.</p></div>
   <div class="card"><h3>OpenFOAM / Ansys</h3><p>Simulation tools. They run airflow (CFD) on a finished model, like our wind tunnel.</p></div>
+ </div>
+ <p class="note rv">3D design is not only for aircraft. The same skills build films, games, buildings, medical models and everyday products.</p>
+</section>
+
+<section id="sk1">
+ <div class="kick rv">04</div><h2 class="rv">Tinkercad: your first <span class="or">3D design</span></h2>
+ <div class="stage">
+  <div class="ctl rv" id="tks" style="gap:6px">
+   <button class="stp on" data-s="1"><span><b>1</b> Drag a shape</span><small>Pick Box from Basic Shapes and drop it on the blue workplane.</small></button>
+   <button class="stp" data-s="2"><span><b>2</b> Resize</span><small>Drag the white corner handles, or type exact sizes.</small></button>
+   <button class="stp" data-s="3"><span><b>3</b> Move and rotate</span><small>Black arrow lifts it. Curved arrows rotate it.</small></button>
+   <button class="stp" data-s="4"><span><b>4</b> Make a hole</span><small>Add a Cylinder, set it to Hole and push it through.</small></button>
+   <button class="stp" data-s="5"><span><b>5</b> Group</span><small>Select both and press Ctrl+G. The hole cuts the solid.</small></button>
+   <button class="stp" data-s="6"><span><b>6</b> Export</span><small>Click Export and choose .STL for a 3D printer.</small></button>
+  </div>
+  <div class="view rv" id="tkv" style="position:relative"><div id="tkd"></div></div>
+ </div>
+</section>
+
+<section id="sk2">
+ <div class="kick rv">05</div><h2 class="rv">Tinkercad features you will <span class="or">use</span></h2>
+ <div class="grid g3 rv">
+  <div class="card"><h3>Snap grid</h3><p>Change the grid size to place shapes fast or with fine accuracy.</p></div>
+  <div class="card"><h3>Dimensions</h3><p>Click a shape and type its exact length, width and height.</p></div>
+  <div class="card"><h3>Align</h3><p>Select shapes and line them up by edge or centre.</p></div>
+  <div class="card"><h3>Mirror</h3><p>Flip a copy to make its twin, such as the second wing.</p></div>
+  <div class="card"><h3>Duplicate</h3><p>Copy a shape, move it, then repeat to build a pattern.</p></div>
+  <div class="card"><h3>Hole and Group</h3><p>A hole cuts any solid it touches. Group locks them into one part.</p></div>
+ </div>
+ <div class="row rv" style="gap:18px;margin-top:6px">
+  <span class="note"><b class="kbd">Ctrl + G</b> group</span>
+  <span class="note"><b class="kbd">Ctrl + Shift + G</b> ungroup</span>
+  <span class="note"><b class="kbd">Ctrl + D</b> duplicate and repeat</span>
+  <span class="note"><b class="kbd">D</b> drop to workplane</span>
+ </div>
+</section>
+
+<section id="sk3">
+ <div class="kick rv">06</div><h2 class="rv">Project: a simple aircraft in <span class="or">Tinkercad</span></h2>
+ <div class="stage2 rv">
+  <div class="card" style="display:grid;place-items:center">
+   <svg viewBox="0 0 360 300" style="width:100%;height:min(40vh,340px)" role="img" aria-label="Aircraft top view built from basic shapes">
+    <polygon class="pt" points="165,76 195,76 180,24"/>
+    <rect class="pt" x="165" y="76" width="30" height="170" rx="3"/>
+    <polygon class="pt" points="195,128 318,196 195,176"/>
+    <polygon class="pt" points="165,128 42,196 165,176"/>
+    <polygon class="pt" points="195,222 250,246 195,246"/>
+    <polygon class="pt" points="165,222 110,246 165,246"/>
+    <rect class="pt" x="177.5" y="214" width="5" height="32"/>
+    <line class="ld" x1="214" y1="40" x2="186" y2="46"/><text class="lb" x="218" y="44">Cone (nose)</text>
+    <line class="ld" x1="214" y1="104" x2="196" y2="104"/><text class="lb" x="218" y="108">Cylinder (fuselage)</text>
+    <line class="ld" x1="262" y1="158" x2="248" y2="170"/><text class="lb" x="236" y="150">Wedge (wing)</text>
+    <line class="ld" x1="100" y1="150" x2="104" y2="180"/><text class="lb" x="22" y="146">Mirror copy</text>
+    <line class="ld" x1="262" y1="262" x2="230" y2="242"/><text class="lb" x="236" y="278">Small wedges (elevator)</text>
+    <line class="ld" x1="120" y1="270" x2="178" y2="236"/><text class="lb" x="58" y="284">Upright wedge (rudder)</text>
+   </svg>
+  </div>
+  <div class="card">
+   <ol class="bl" style="max-width:none;gap:10px">
+    <li><b style="color:#fff">Fuselage:</b> stretch a Cylinder, then add a Cone for the nose.</li>
+    <li><b style="color:#fff">Wings:</b> stretch a Wedge wide and thin. Duplicate it and use Mirror for the other side.</li>
+    <li><b style="color:#fff">Tail:</b> stand a small Wedge upright as the rudder and add two small wedges as the elevator.</li>
+    <li><b style="color:#fff">Align and group:</b> line everything up on the centre line, then press Ctrl+G.</li>
+    <li><b style="color:#fff">Export:</b> save as .STL. Print it, or test the shape in a wind tunnel or CFD tool.</li>
+   </ol>
+  </div>
  </div>
 </section>
 
 <section id="s5">
- <div class="kick rv">04</div><h2 class="rv">Parts of an aircraft and <span class="or">their roles</span></h2>
- <p class="rv">Every part has one main job. Change a part and the flight changes. Session 2 showed how they control roll, pitch and yaw.</p>
+ <div class="kick rv">07</div><h2 class="rv">Parts of an aircraft and <span class="or">their roles</span></h2>
+ <p class="rv">Hover or tap a part to see its role. Session 2 showed how they control roll, pitch and yaw.</p>
+ <div class="stage2 rv">
+  <div class="card" style="display:grid;place-items:center">
+   <svg viewBox="0 0 360 310" style="width:100%;height:min(27vh,260px)" role="img" aria-label="Top view of an aircraft with labelled parts">
+    <polygon class="pt" data-p="wing" points="195,100 330,165 330,185 195,155"/>
+    <polygon class="pt" data-p="wing" points="165,100 30,165 30,185 165,155"/>
+    <polygon class="pt" data-p="aileron" points="272,172.1 330,185 330,177 272,164.1"/>
+    <polygon class="pt" data-p="aileron" points="88,172.1 30,185 30,177 88,164.1"/>
+    <rect class="pt" data-p="engine" x="241" y="112" width="16" height="36" rx="8"/>
+    <rect class="pt" data-p="engine" x="103" y="112" width="16" height="36" rx="8"/>
+    <polygon class="pt" data-p="elevator" points="195,236 252,262 252,272 195,258"/>
+    <polygon class="pt" data-p="elevator" points="165,236 108,262 108,272 165,258"/>
+    <path class="pt fu" data-p="fuselage" d="M180 14C192 24 195 50 195 90L195 235C195 255 188 275 180 284C172 275 165 255 165 235L165 90C165 50 168 24 180 14Z"/>
+    <rect class="pt" data-p="rudder" x="177.5" y="236" width="5" height="40"/>
+    <line class="ld" data-p="fuselage" x1="212" y1="53" x2="196" y2="53"/><text class="lb" data-p="fuselage" x="216" y="57">Fuselage</text>
+    <line class="ld" data-p="wing" x1="302" y1="116" x2="284" y2="148"/><text class="lb" data-p="wing" x="296" y="110">Wing</text>
+    <line class="ld" data-p="aileron" x1="300" y1="206" x2="300" y2="177"/><text class="lb" data-p="aileron" x="276" y="220">Aileron</text>
+    <line class="ld" data-p="elevator" x1="262" y1="284" x2="238" y2="263"/><text class="lb" data-p="elevator" x="250" y="298">Elevator</text>
+    <line class="ld" data-p="engine" x1="62" y1="102" x2="105" y2="124"/><text class="lb" data-p="engine" x="14" y="100">Engine</text>
+    <line class="ld" data-p="rudder" x1="86" y1="294" x2="178" y2="272"/><text class="lb" data-p="rudder" x="44" y="298">Rudder</text>
+   </svg>
+  </div>
+  <div class="card" style="display:grid;place-items:center">
+   <svg viewBox="0 0 400 230" style="width:100%;height:min(27vh,260px)" role="img" aria-label="Side view of an aircraft with labelled parts">
+    <polygon class="pt" data-p="wing" points="130,130 236,150 252,150 206,130"/>
+    <ellipse class="pt" data-p="engine" cx="196" cy="164" rx="26" ry="10"/>
+    <rect class="pt" data-p="engine" x="190" y="148" width="12" height="8"/>
+    <polygon class="pt" points="292,92 338,18 366,18 354,92"/>
+    <path class="pt fu" data-p="fuselage" d="M14 118C14 100 40 92 80 92L330 92C350 92 366 98 386 112L386 122C362 128 342 132 322 134L80 134C40 134 14 132 14 118Z"/>
+    <polygon class="pt" data-p="rudder" points="366,18 354,92 335.4,92 357.6,18"/>
+    <polygon class="pt" data-p="elevator" points="318,98 384,90 386,94 324,104"/>
+    <line class="ld" data-p="fuselage" x1="170" y1="64" x2="170" y2="92"/><text class="lb" data-p="fuselage" x="140" y="58">Fuselage</text>
+    <line class="ld" data-p="wing" x1="140" y1="184" x2="168" y2="136"/><text class="lb" data-p="wing" x="116" y="198">Wing</text>
+    <line class="ld" data-p="engine" x1="236" y1="200" x2="214" y2="170"/><text class="lb" data-p="engine" x="226" y="214">Engine</text>
+    <line class="ld" data-p="rudder" x1="318" y1="24" x2="354" y2="42"/><text class="lb" data-p="rudder" x="252" y="30">Rudder</text>
+    <line class="ld" data-p="elevator" x1="352" y1="156" x2="352" y2="100"/><text class="lb" data-p="elevator" x="322" y="170">Elevator</text>
+   </svg>
+  </div>
+ </div>
  <div class="grid g3 rv">
-  <div class="card"><h3>Fuselage</h3><p>Carries crew, cargo, fuel and engines. Its shape sets the drag.</p></div>
-  <div class="card"><h3>Wings</h3><p>Make the lift that holds the aircraft up.</p></div>
-  <div class="card"><h3>Ailerons</h3><p>Flaps on the wings that roll the aircraft left or right.</p></div>
-  <div class="card"><h3>Elevator</h3><p>Moves the nose up or down (pitch).</p></div>
-  <div class="card"><h3>Rudder</h3><p>Turns the nose left or right (yaw).</p></div>
-  <div class="card"><h3>Engines</h3><p>Give the thrust that pushes the wings through the air.</p></div>
+  <div class="card" data-p="fuselage"><h3>Fuselage</h3><p>Carries crew, cargo, fuel and engines. Its shape sets the drag.</p></div>
+  <div class="card" data-p="wing"><h3>Wings</h3><p>Make the lift that holds the aircraft up.</p></div>
+  <div class="card" data-p="aileron"><h3>Ailerons</h3><p>Flaps on the wings that roll the aircraft left or right.</p></div>
+  <div class="card" data-p="elevator"><h3>Elevator</h3><p>Moves the nose up or down (pitch).</p></div>
+  <div class="card" data-p="rudder"><h3>Rudder</h3><p>Turns the nose left or right (yaw).</p></div>
+  <div class="card" data-p="engine"><h3>Engines</h3><p>Give the thrust that pushes the wings through the air.</p></div>
  </div>
 </section>
 
 <section id="sw">
- <div class="kick rv">05</div><h2 class="rv">Types of wings and <span class="or">their roles</span></h2>
+ <div class="kick rv">08</div><h2 class="rv">Types of wings and <span class="or">their roles</span></h2>
  <div class="row rv" id="wb"><button data-w="straight" class="on">Straight</button><button data-w="swept">Swept</button><button data-w="delta">Delta</button><button data-w="variable">Variable sweep</button><button data-w="forward">Forward swept</button></div>
  <div class="stage2 rv">
   <div class="card" style="display:grid;place-items:center">
@@ -131,7 +246,7 @@ input[type=range]{accent-color:var(--or);width:100%}
 </section>
 
 <section id="sm">
- <div class="kick rv">06</div><h2 class="rv">Where each wing is <span class="or">used</span></h2>
+ <div class="kick rv">09</div><h2 class="rv">Where each wing is <span class="or">used</span></h2>
  <div class="grid g3 rv">
   <div class="card"><h3>Trainers and light planes</h3><span class="tag">Straight</span><p class="w">Cessna 172, Piper Cub</p><p>Slow, forgiving and high lift at low speed.</p></div>
   <div class="card"><h3>Regional turboprops</h3><span class="tag">Straight</span><p class="w">ATR 72, Dash 8</p><p>Efficient on short trips and short runways.</p></div>
@@ -140,11 +255,11 @@ input[type=range]{accent-color:var(--or);width:100%}
   <div class="card"><h3>Fighters</h3><span class="tag">Delta or swept</span><p class="w">Mirage 2000, MiG-21, MiG-29</p><p>Fast, strong and able to fly at high angles of attack.</p></div>
   <div class="card"><h3>Supersonic and space flight</h3><span class="tag">Delta</span><p class="w">Concorde, Space Shuttle</p><p>Big area gives lift at the high angles used to slow down.</p></div>
  </div>
- <p class="note rv">Try them in the simulator: Light plane (straight), Airliner and MiG-29 (swept), MiG-21 and Mirage 2000 (delta).</p>
+ <p class="note rv">Try them in the simulator: Light plane (straight), Airliner and MiG-29 (swept), Mirage 2000 (delta), and the Quadcopter (rotors instead of wings).</p>
 </section>
 
 <section id="sf">
- <div class="kick rv">07</div><h2 class="rv">Wing details that change <span class="or">performance</span></h2>
+ <div class="kick rv">10</div><h2 class="rv">Wing details that change <span class="or">performance</span></h2>
  <div class="grid rv">
   <div class="card"><h3>Aspect ratio</h3><p class="w">Gliders, U-2 and fighters</p><p>Long thin wings waste less energy. Short wide wings are strong and turn quickly.</p></div>
   <div class="card"><h3>Winglets</h3><p class="w">Boeing 737 MAX, Airbus A320</p><p>They weaken the wingtip vortex and cut fuel use. Watch the orange tip vortex in the simulator.</p></div>
@@ -154,7 +269,7 @@ input[type=range]{accent-color:var(--or);width:100%}
 </section>
 
 <section id="s7">
- <div class="kick rv">08</div><h2 class="rv">Wind-tunnel <span class="or">Simulator</span></h2>
+ <div class="kick rv">11</div><h2 class="rv">Wind-tunnel <span class="or">Simulator</span></h2>
  <div class="tun">
   <div class="side">
    <ul class="rv bl">
@@ -298,7 +413,22 @@ function mig29(p){const g=new T.Group(),ud=newUD(),{mb,mw,md,mg}=mats(),mf=mw.cl
  g.userData=ud;return g}
 
 /* ===== generic parametric aircraft ===== */
-function plane(p){if(p.mig)return mig29(p);
+let SPIN=[];
+function quad(p){const g=new T.Group(),{mb,mw,md,mg}=mats(),ud=newUD();ud.rot=[];SPIN=[];
+ const add=(geo,mt,x,y,z)=>{const o=new T.Mesh(geo,mt);o.position.set(x,y,z);g.add(o);return o};
+ add(new T.SphereGeometry(1,28,16),mb,0,0,0).scale.set(1.05,.36,.72);ud.bodies.push(prepBody(ellS(0,0,0,1.05,.36,.72)));
+ add(new T.BoxGeometry(.9,.18,.5),md,.1,.36,0);
+ add(new T.SphereGeometry(.26,16,12),md,-1,-.2,0);ud.bodies.push(prepBody(ellS(-1,-.2,0,.26,.26,.26)));
+ [-.65,.65].forEach(z=>{add(new T.CylinderGeometry(.04,.04,2.4,8),md,0,-.78,z).rotation.z=Math.PI/2;[-.8,.8].forEach(x=>add(new T.CylinderGeometry(.035,.035,.6,6),md,x,-.5,z))});
+ [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([sx,sz])=>{const mx=sx*1.7,mz=sz*1.7,my=.1,v=new T.Vector3(mx,my,mz),len=v.length();
+  const arm=add(new T.CylinderGeometry(.08,.08,len,10),md,mx/2,my/2,mz/2);arm.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),v.clone().normalize());
+  const sec=[.4,.9,1.4].map(t=>[sx*t,my*t/1.7,sz*t,.08,.08]);if(sx<0)sec.reverse();ud.bodies.push(prepBody(sec));
+  add(new T.CylinderGeometry(.2,.22,.28,20),md,mx,my+.1,mz);ud.bodies.push(prepBody(ellS(mx,my+.1,mz,.22,.14,.22)));
+  const ry=my+.42,rg=new T.Group();rg.position.set(mx,ry,mz);g.add(rg);rg.add(new T.Mesh(new T.BoxGeometry(2,.025,.15),mw));
+  const dsc=add(new T.CircleGeometry(1,40),new T.MeshBasicMaterial({color:0x7fc0ff,transparent:true,opacity:.1,side:T.DoubleSide}),mx,ry,mz);dsc.rotation.x=-Math.PI/2;
+  SPIN.push({o:rg,d:sx*sz>0?1:-1});ud.rot.push({x:mx,y:ry,z:mz,r:1})});
+ g.userData=ud;return g}
+function plane(p){if(p.mig)return mig29(p);if(p.quad)return quad(p);
  const g=new T.Group(),L=p.L,R=p.R,sp=p.span,W=p.wing,dl=W=='delta',sw=W=='swept',ex=p.ext||{},ud=newUD(),{mb,mw,md,mg}=mats();
  const add=(geo,mt,x,y,z,rx=0,rz=0)=>{const o=new T.Mesh(geo,mt);o.position.set(x,y,z);o.rotation.set(rx,0,rz);g.add(o);return o};
  const rod=(a,b,r)=>{const d=new T.Vector3(b[0]-a[0],b[1]-a[1],b[2]-a[2]),o=new T.Mesh(new T.CylinderGeometry(r,r,d.length(),8),md);o.position.set((a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2);o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());g.add(o)};
@@ -340,10 +470,10 @@ const PRE={
 "MiG-29":{mig:1,L:8,span:3,elev:2,rh:1.3,fus:'slim',wing:'swept',rud:'twin',R:.5,
  /* fallback parametric values, used only if the fuselage / wing / rudder selectors are changed */
  c:2.6,ct:.62,shr:.82,x0f:-.12,wy:-.1,ec:1.5,ect:.55,eshr:.6,exf:.34,ey:-.2,fc:1.5,fct:.55,fshr:.75,fxf:.3,fz:.42,cant:.1,fw:1.3,ext:{lerx:1,intake:'chin',noz:2,pod:1,spine:1,probe:1}},
-"MiG-21":{fus:'blunt',L:8.5,R:.4,wing:'delta',span:1.9,c:3.1,ct:.75,shr:1.5,x0f:-.2,wy:0,elev:1.5,ec:1.4,ect:.5,eshr:.9,exf:.3,ey:-.3,rud:'swept',rh:1.5,fc:2.4,fct:.8,fshr:1.1,fxf:.17,cpx:-.25,ext:{intake:'nose',noz:1,vent:1,elevon:1}},
 "Mirage 2000":{fus:'slim',L:5.4,R:.36,wing:'delta',span:2.25,c:3.5,ct:.5,wy:-.1,elev:0,rud:'swept',rh:1.3,fc:1.6,fct:.65,fshr:.8,fxf:.2,ext:{intake:'side',noz:1,elevon:1}},
 "Airliner":{fus:'tube',L:11,R:.62,wing:'swept',span:5.1,c:1.8,ct:.45,shr:.5,x0f:-.1,wy:-.6,dih:.06,elev:1.8,ec:.9,ect:.35,eshr:.55,exf:.36,rud:'swept',rh:2,fc:1.8,fct:.6,fshr:1,fxf:.3,ext:{eng:1,wlet:1}},
-"Light plane":{fus:'tapered',L:6.5,R:.5,wing:'straight',span:4.2,c:1.3,ct:1,shr:.05,x0f:-.17,wy:.95,th:.1,elev:1.4,ec:.8,ect:.6,eshr:.05,exf:.38,ey:.2,rud:'swept',rh:1.2,fc:1.1,fct:.55,fshr:.8,fxf:.36,cpx:-.1,cps:1.9,ext:{prop:1,gear:1,strut:1}}};
+"Light plane":{fus:'tapered',L:6.5,R:.5,wing:'straight',span:4.2,c:1.3,ct:1,shr:.05,x0f:-.17,wy:.95,th:.1,elev:1.4,ec:.8,ect:.6,eshr:.05,exf:.38,ey:.2,rud:'swept',rh:1.2,fc:1.1,fct:.55,fshr:.8,fxf:.36,cpx:-.1,cps:1.9,ext:{prop:1,gear:1,strut:1}},
+"Quadcopter":{quad:1}};
 
 
 /* wind tunnel */
@@ -352,7 +482,7 @@ const wv=viewer($('#wv'),[9,5,13]);wv.o.maxDistance=50;grid(wv,30,-YT);
 wv.s.add(new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(2*XT,2*YT,2*ZT)),new T.LineBasicMaterial({color:0xff8a1f,transparent:true,opacity:.45})));
 const wh=new T.Group(),vg=new T.Group();wv.s.add(wh,vg);
 let UD=newUD(),VX=[],SB={xm:2,cy:0,hz:2,yh:1},aoa=8,run=true,spd=1,pn='',LFK=1,STK=0,TBA=.2;const PB={};
-const stallF=()=>Math.max(0,Math.min(1.4,(Math.abs(aoa)-(pn=='d'?18:13))/8));
+const stallF=()=>UD.surf.some(q=>q.lift)?Math.max(0,Math.min(1.4,(Math.abs(aoa)-(pn=='d'?18:13))/8)):0;
 
 /* ---- exact 2D potential flow around an ellipse (Joukowski map), with optional circulation ----
    xi along the chord/width axis (semi-axis A >= B), eta across it. Freestream (u,v).
@@ -411,6 +541,13 @@ function field(wx,wy,wz,ph,v0,ca,sa,T0){const lx=wx*ca-wy*sa,ly=wx*sa+wy*ca,lz=w
   const u=Math.min(1,dq/q.Lf),ry=u*u*(3-2*u),dy=wy-(q.y-q.sk*dq),dz=wz-(q.z+(q.ze-q.z)*(1-Math.exp(-dq/q.Lr))),d2=dy*dy+dz*dz+1e-4,rc=q.rc+.012*dq,e=Math.exp(-d2/(rc*rc)),
    dc=Math.exp(-dq/q.dec),f=(1-e)/(2*PI*d2)*q.G*v0*dc*ry;
   Ey+=f*q.sg*dz;Ez-=f*q.sg*dy;Ex-=q.ax*v0*e*ry*dc;vt=Math.max(vt,ry*Math.exp(-d2/(4*rc*rc)))}
+ /* rotor wake: suction above each disc, skewed downwash jet below, tip-vortex ring */
+ if(UD.rot)for(let i=0;i<UD.rot.length;i++){const r=UD.rot[i],R=r.r,dyl=ly-r.y;if(dyl>3*R||dyl<-9*R)continue;
+  const xc=r.x+(dyl<0?-dyl*.7:0),ddx=lx-xc,ddz=lz-r.z,d=Math.sqrt(ddx*ddx+ddz*ddz)+1e-3,vi=.5*v0;let w,ur=0;
+  if(dyl<0){const Rj=R*(1-.1*Math.min(1,-dyl/R));w=-vi*(1+Math.min(1,-dyl/(1.5*R)))*Math.exp(-Math.pow(d/Rj,4))*Math.exp(dyl/(7*R))}
+  else{w=-vi*.7*Math.exp(-(d*d)/(1.56*R*R))*Math.exp(-dyl/(.8*R));ur=-vi*.25*(d/R)*Math.exp(-dyl/R)*Math.exp(-(d*d)/(3.24*R*R))}
+  const ux=ur*ddx/d,uz=ur*ddz/d;Ex+=w*sa+ux*ca;Ey+=w*ca-ux*sa;Ez+=uz;
+  const ring=Math.exp(-Math.pow((d-R)/(.3*R),2))*(dyl<0?Math.exp(dyl/(2.5*R)):Math.exp(-dyl/(.6*R)));vt=Math.max(vt,.85*ring)}
  const ST=Math.min(1,STK),tw=(A,w,ph2)=>{Ey+=A*(Math.sin(T0*9+ph+wx*1.7)+.5*Math.sin(T0*17+ph*3+wx*3.1));Ez+=A*(Math.cos(T0*7.5+ph*2+wx*1.3)+.5*Math.cos(T0*15+ph*5));Ex-=A*.3};
  /* light wake behind the tail (always) */
  if(wx>SB.xm){const dx=wx-SB.xm,h=.5+.18*dx+SB.yh*.4,hz=SB.hz*.8+.12*dx,a1=1-Math.abs(wy-SB.cy)/h,a2=1-Math.abs(wz)/hz;
@@ -454,7 +591,7 @@ function samp(){wh.updateMatrixWorld(true);const m0=wh.children[0];if(!m0)return
   wh.localToWorld(V3.set(xs,GO+(s0||1)*GH/2,0));const sx=V3.x,sy=V3.y;wh.localToWorld(V3.set(GT,GO,0));
   SB.sep={x:sx,y:sy,sg:s0||1,ta:Math.tan(Math.abs(aoa)*DEG),dte:Math.max(.5,V3.x-sx),hz:.85*sm}}
  retrace()}
-function show(p,name,key){wh.clear();wh.add(plane(p));pn=p.wing=='delta'?'d':'';wh.rotation.z=-aoa*DEG;samp();Object.values(PB).forEach(b=>b.classList.remove('on'));PB[key]&&PB[key].classList.add('on');$('#wt').textContent='Selected aircraft: '+name}
+function show(p,name,key){wh.clear();wh.add(plane(p));$('#o_a').parentNode.firstChild.nodeValue=p.quad?'Body tilt ':'Angle of attack ';pn=p.wing=='delta'?'d':'';wh.rotation.z=-aoa*DEG;samp();Object.values(PB).forEach(b=>b.classList.remove('on'));PB[key]&&PB[key].classList.add('on');$('#wt').textContent='Selected aircraft: '+name}
 
 const NS0=520,NS=632,TL=24,P=new Float32Array(NS*3),Y0=new Float32Array(NS),Z0=new Float32Array(NS),PH=Float32Array.from({length:NS},()=>Math.random()*6.28),H=new Float32Array(NS*TL*3),HC=new Float32Array(NS*TL*3),LP=new Float32Array(NS*(TL-1)*6),LC=new Float32Array(NS*(TL-1)*6);
 function spawn(i,x,init){let yy,zz;
@@ -462,13 +599,14 @@ function spawn(i,x,init){let yy,zz;
   const q=VX[(i-NS0)%VX.length],a=Math.random()*6.283;x=init?q.x-1.5+Math.random()*(XT-q.x+1.5):q.x-.2-Math.random()*2.2;
   const dq=Math.max(0,x-q.x),r=(.3+Math.random()*1.6)*(q.rc+.012*dq+.03);
   yy=q.y-q.sk*dq+r*Math.sin(a);zz=q.z+(q.ze-q.z)*(1-Math.exp(-dq/q.Lr))+r*Math.cos(a)}
+ else if(i>=NS0&&UD.rot&&UD.rot.length){const r=UD.rot[(i-NS0)%UD.rot.length],a=Math.random()*6.283,rr=r.r*(.55+.5*Math.random()),q=wh.localToWorld(new T.Vector3(r.x+rr*Math.cos(a),r.y+.1+Math.random()*.5,r.z+rr*Math.sin(a)));x=init?q.x+Math.random()*(XT-q.x):q.x-.3;yy=q.y-(init?Math.random()*1.5:0);zz=q.z}
  else{const near=i%2==0,y=near?SB.cy+(Math.random()-.5)*(SB.yh+2.5):(Math.random()-.5)*2*(YT-.3),z=near?(Math.random()-.5)*(SB.hz*2+2):(Math.random()-.5)*2*(ZT-.3);yy=y;zz=z}
  yy=Math.max(-YT+.2,Math.min(YT-.2,yy));zz=Math.max(-ZT+.2,Math.min(ZT-.2,zz));P[i*3]=x;P[i*3+1]=Y0[i]=yy;P[i*3+2]=Z0[i]=zz;for(let j=0;j<TL;j++){H.set([x,yy,zz],(i*TL+j)*3);HC.set([0,0,0],(i*TL+j)*3)}}
 function retrace(){for(let i=NS0;i<NS;i++)spawn(i,0,true)}
 const lg=new T.BufferGeometry();lg.setAttribute('position',new T.BufferAttribute(LP,3));lg.setAttribute('color',new T.BufferAttribute(LC,3));
 const ln=new T.LineSegments(lg,new T.LineBasicMaterial({vertexColors:true,transparent:true,blending:T.AdditiveBlending,depthWrite:false}));ln.frustumCulled=false;wv.s.add(ln);
 let T0=0,acc=0;
-wv.tick=dt=>{if(!run)return;T0+=dt;acc+=dt;const push=acc>.035;if(push)acc=0;const v0=spd*7,ca=Math.cos(aoa*DEG),sa=Math.sin(aoa*DEG),ns=Math.min(4,Math.max(1,Math.ceil(v0*dt*1.8/.1))),h=dt/ns;
+wv.tick=dt=>{if(!run)return;SPIN.forEach(s=>s.o.rotation.y+=s.d*dt*30*Math.max(.4,spd));T0+=dt;acc+=dt;const push=acc>.035;if(push)acc=0;const v0=spd*7,ca=Math.cos(aoa*DEG),sa=Math.sin(aoa*DEG),ns=Math.min(4,Math.max(1,Math.ceil(v0*dt*1.8/.1))),h=dt/ns;
  for(let i=0;i<NS;i++){let vt=0,tb=0,px=0,sp=1;
   for(let s=0;s<ns;s++){const x=P[i*3],y=P[i*3+1],z=P[i*3+2];field(x,y,z,PH[i],v0,ca,sa,T0);let ax=FR.vx,ay=FR.vy,az=FR.vz;
    if(FR.vt>.03){field(x+ax*h/2,y+ay*h/2,z+az*h/2,PH[i],v0,ca,sa,T0);ax=FR.vx;ay=FR.vy;az=FR.vz}
@@ -509,5 +647,30 @@ document.querySelectorAll('#wb button').forEach(b=>b.onclick=()=>{type=b.dataset
  let tg;if(type=='variable'){const t=.5-.5*Math.cos(now/1100);tg=SP.map((v,i)=>v+(SW[i]-v)*t)}else tg=W[type];
  if(type=='variable'||k<1){cur=from.map((v,i)=>v+(tg[i]-v)*e);draw()}})(0);
 draw();info('straight')})();
+</script>
+<script>
+(()=>{const on=(p,f)=>document.querySelectorAll('#s5 [data-p="'+p+'"]').forEach(x=>x.classList.toggle('on',!!f));
+ document.querySelectorAll('#s5 [data-p]').forEach(e=>{const p=e.dataset.p;e.addEventListener('mouseenter',()=>on(p,1));e.addEventListener('mouseleave',()=>on(p,0));e.addEventListener('click',()=>{const f=!e.classList.contains('on');on(p,f)})})})();
+(()=>{const tk=viewer($('#tkv'),[4.6,3.6,5.2]);tk.o.target.set(0,.4,0);tk.o.autoRotateSpeed=3;
+ tk.s.add(new T.GridHelper(8,16,0x4da3ff,0x2a4a9a));
+ const pl=new T.Mesh(new T.PlaneGeometry(8,8),new T.MeshBasicMaterial({color:0x1a3a8a,transparent:true,opacity:.35,side:T.DoubleSide}));pl.rotation.x=-Math.PI/2;pl.position.y=-.01;tk.s.add(pl);
+ const mO=new T.MeshStandardMaterial({color:0xff8a1f,roughness:.5,metalness:.05}),grp=new T.Group();tk.s.add(grp);
+ const eg=(g,c)=>new T.LineSegments(new T.EdgesGeometry(g,30),new T.LineBasicMaterial({color:c}));
+ const box=new T.Mesh(new T.BoxGeometry(1,1,1),mO);box.add(eg(box.geometry,0x7a3b00));grp.add(box);
+ const hole=new T.Mesh(new T.CylinderGeometry(.45,.45,1,32),new T.MeshStandardMaterial({color:0x9aa3c0,transparent:true,opacity:.5}));hole.add(eg(hole.geometry,0xffffff));grp.add(hole);
+ const sh=new T.Shape();sh.moveTo(-1.2,-.8);sh.lineTo(1.2,-.8);sh.lineTo(1.2,.8);sh.lineTo(-1.2,.8);sh.closePath();const hp=new T.Path();hp.absarc(0,0,.45,0,Math.PI*2,true);sh.holes.push(hp);
+ const rg=new T.ExtrudeGeometry(sh,{depth:.9,bevelEnabled:false,curveSegments:32});rg.rotateX(-Math.PI/2);const res=new T.Mesh(rg,mO);res.add(eg(rg,0x7a3b00));grp.add(res);
+ const F={sx:2.4,sy:.9,sz:1.6,y:.45},Q=Math.PI/4;
+ const S=[null,{sx:1,sy:1,sz:1,y:.5,ry:0,h:0,res:0},Object.assign({ry:0,h:0,res:0},F),Object.assign({ry:Q,h:0,res:0},F),Object.assign({ry:Q,h:1,res:0},F),Object.assign({ry:Q,h:1,res:1},F),Object.assign({ry:Q,h:1,res:1},F)];
+ const TXT=['','Box: 20 x 20 x 20 mm','Box: 48 x 18 x 32 mm','Rotated 45 degrees','Cylinder set to Hole','Grouped: one solid with a hole','Ready to export as .STL'];
+ const cur={sx:.01,sy:.01,sz:.01,y:3.5,ry:0,h:0,res:0};let st=1;
+ tk.tick=dt=>{const t=S[st],k=1-Math.exp(-dt*6);for(const key in t)cur[key]+=(t[key]-cur[key])*k;
+  box.scale.set(cur.sx,cur.sy,cur.sz);box.position.y=cur.y;grp.rotation.y=cur.ry;
+  hole.scale.set(Math.max(.001,cur.h),Math.max(.001,1.7*cur.h),Math.max(.001,cur.h));hole.position.y=.45;
+  const r=cur.res>.5;res.visible=r;box.visible=!r;hole.visible=cur.h>.02&&!r};
+ const pick=n=>{st=n;if(n==1){cur.sx=cur.sy=cur.sz=.01;cur.y=3.5}tk.o.autoRotate=n==6;
+  document.querySelectorAll('#tks .stp').forEach(b=>b.classList.toggle('on',+b.dataset.s==n));$('#tkd').textContent=TXT[n]};
+ document.querySelectorAll('#tks .stp').forEach(b=>b.onclick=()=>pick(+b.dataset.s));
+ new IntersectionObserver(e=>{if(e[0].isIntersecting)pick(1)},{threshold:.6}).observe($('#sk1'));pick(1)})();
 </script>
 </body></html>
